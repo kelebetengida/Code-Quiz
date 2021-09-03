@@ -1,42 +1,87 @@
-var startEl = document.getElementById("start-page")
-var questionEl = document.getElementById("question-page")
-var endEl = document.getElementById("end-page")
-var startQuizBtn=document.getElementById("start-button")
 
-questionEl.style.display="none"
-endEl.style.display="none"
-
-var questions =[
+var arrayQuestions =[
     {
-        title: 'What differences in a child’s airway might make airway management more difficult than in an adult?',
-        choices: ['a smaller jaw and a proportionally larger tongue', 'There are no anatomic differences that affect airway management in children versus adults.','smaller jaw, smaller teeth','longer airway and small tongue']       
-        answer: '2'
-    }
+        question: 'Which of the following ventilatory techniques is likely to yield the LOWEST tidal volumes?',
+        choices: ['One person bag-valve-mask', 'Two person bag-valve-mask','Flow restricted oxygen powered ventilatory device','Mouth-to-mask'],       
+        answers: 'One person bag-valve-mask'
+    },
     {
-        title: 'What is 1 plus 1?',
-        choices: ['0', '1', '2', '3'],
-        answer: '2'
-    }
+        question: 'In order to assist intubation, a paramedic may utilize Sellick maneuver. In this procedure, which cartilage are you compressing?',
+        choices: ['Cricoid cartilage', 'Aryepiglottic cartilage', 'Thyroid cartilage', 'Hyoid cartilage'],
+        answer: 'Cricoid cartilage'
+    },
     {
-        title: 'What is 1 plus 1?',
-        choices: ['0', '1', '2', '3'],
-        answer: '2'
-    }
+        question: 'The patient has very shallow, rapid respirations with minimal chest wall motion and slight wheezing in the upper lung fields. Given this situation, what would you expect the arterial carbon dioxide levels to be?',
+        choices: ['Not enough information to determine', 'Normal', 'Lowered', 'Elevated'],
+        answer: 'Elevated'
+    },
     {
-        title: 'What is 1 plus 1?',
-        choices: ['0', '1', '2', '3'],
-        answer: '2'
-    }
+        question: 'You are transporting a 48-year-old male patient between medical facilities... During the history, you learn that the patient was involved in a fall at work and suffered a hip fracture and a head injury. The patient is now presenting with labored breathing at 30/min that has progressively worsened over the last 24 hours, a heart rate of 104, and a blood pressure of 98/70. On auscultation, you hear diffuse rales. The patient denies any complaints of pain other than those related to his recent fall. What is the most likely cause of the patient respiratory distress?',
+        choices: ['Cardiogenic shock', 'Congestive heart failure', 'Acute bronchitis', 'Adult respiratory distress syndrome'],
+        answer: 'Adult respiratory distress syndrome'
+    },
     {
-        title: 'What is 1 plus 1?',
-        choices: ['0', '1', '2', '3'],
-        answer: '2'
+        question: 'Which of the following is the most effective method for administering ventilations to an apneic patient?',
+        choices: ['Two person bag-valve-mask.', 'FROPVD', 'One person bag-valve-mask.', 'Mouth-to-mouth.'],
+        answer: 'Two person bag-valve-mask.'
     }
 ]
+
+//variables from HTML element 
+
+const startPageEl=document.querySelector("#start-page");
+const questionPageEl=document.querySelector("#question-page");
+const endPageEl=document.querySelector("#end-page");
+const timerEl=document.querySelector("#timer");
+const startButtonEl=document.querySelector("#start-button");
+const questionTitleEl=document.querySelector("#question-title");
+const questionChoicesEl=document.querySelector("#question-choices");
+
+
+questionPageEl.style.display="none";
+endPageEl.style.display="none";
+
+let timeLeft=60;
+let timerId
+let questionIndex=0
+let score=0
+
+function clocktick(){
+    timeLeft--;
+    timerEl.textContent=`time:${timeLeft}`;
+    
+}
+
 function startQuiz(){
-    startEl.style.display="none"
-    questionEl.style.display="block"
+    timerId=setInterval(clocktick, 1000);
+    startPageEl.style.display="none";
+    questionPageEl.style.display="block";
+    generateQuestion();
 }
 
 
-startQuizBtn.onclick= startQuiz
+function generateQuestion(){
+    let currentQuestion=arrayQuestions[questionIndex];
+    questionTitleEl.textContent=currentQuestion.question;
+    currentQuestion.choices.forEach(function(choices){
+        let tempBtn=document.createElement('button');
+        tempBtn.textContent=choices;
+        tempBtn.onclick= 
+        questionChoicesEl.appendChild(tempBtn);
+    })
+}
+//fucntion for a button clickevent 
+
+function compareAnswers(){
+    
+}
+//function for end quiz
+
+
+//save highscore function
+    //save to local storage
+
+
+
+
+startButtonEl.onclick=startQuiz
