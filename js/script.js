@@ -3,7 +3,7 @@ var arrayQuestions =[
     {
         question: 'Which of the following ventilatory techniques is likely to yield the LOWEST tidal volumes?',
         choices: ['One person bag-valve-mask', 'Two person bag-valve-mask','Flow restricted oxygen powered ventilatory device','Mouth-to-mask'],       
-        answers: 'One person bag-valve-mask'
+        answer: 'One person bag-valve-mask'
     },
     {
         question: 'In order to assist intubation, a paramedic may utilize Sellick maneuver. In this procedure, which cartilage are you compressing?',
@@ -36,10 +36,16 @@ const timerEl=document.querySelector("#timer");
 const startButtonEl=document.querySelector("#start-button");
 const questionTitleEl=document.querySelector("#question-title");
 const questionChoicesEl=document.querySelector("#question-choices");
+const finalScoreEl=document.querySelector("#final-score");
+const intialsEl=document.querySelector("#intials");
+const submitBtnEl=document.querySelector("#submitbtn");
+const highScoresEl=document.querySelector("#high-scores");
+const highscoreListEl=document.querySelector("#highscore-list");
 
 
 questionPageEl.style.display="none";
 endPageEl.style.display="none";
+highScoresEl.style.display="none";
 
 let timeLeft=60;
 let timerId
@@ -49,7 +55,11 @@ let score=0
 function clocktick(){
     timeLeft--;
     timerEl.textContent=`time:${timeLeft}`;
-    
+    if (timeLeft <= 0){
+        allDone();
+        
+
+    }
 }
 
 function startQuiz(){
@@ -61,27 +71,70 @@ function startQuiz(){
 
 
 function generateQuestion(){
+    questionChoicesEl.innerHTML="";
     let currentQuestion=arrayQuestions[questionIndex];
     questionTitleEl.textContent=currentQuestion.question;
     currentQuestion.choices.forEach(function(choices){
         let tempBtn=document.createElement('button');
+        tempBtn.setAttribute("value", choices);
         tempBtn.textContent=choices;
-        tempBtn.onclick= 
+        tempBtn.onclick=compareAnswers;
         questionChoicesEl.appendChild(tempBtn);
+
     })
 }
 //fucntion for a button clickevent 
 
-function compareAnswers(){
-    
-}
-//function for end quiz
+function compareAnswers() {
+    const choice=this.value;
+    const answer=arrayQuestions[questionIndex].answer;
+    console.log(choice, answer);
+     if (choice !== answer) {
+        timeLeft-=10
+     } 
+    questionIndex++;
+     if(questionIndex===arrayQuestions.length){
+         allDone();
 
+     } else{
+        generateQuestion()
+     }
+  }
+
+//function for end quiz
+function allDone(){
+
+    clearInterval(timerId);
+    questionPageEl.style.display="none";
+    endPageEl.style.display="block";
+    timerEl.style.display="none";
+    finalScoreEl.textContent=timeLeft;
+}
 
 //save highscore function
+function highScore(){
+    endPageEl.style.display="none";
+    highScoresEl.style.display="block";
+    const highScores=JSON.parse(localStorage.getItem("highscores"))|| [];
+    let newScore={
+        intials: intialsEl.value, 
+        score: timeLeft
+    };
+    highScores.push(newScore);
+    localStorage.setItem("highscores",JSON.stringify(highScores));
+    for(i=0; i<localStorage.length; i++){
+        let key=localStorage.intials(i);
+        let value=localStorage.getItem(key);
+        highscoreListEl.textContent+= `${key}: ${value}`
+    }
+    
+}
+
+
     //save to local storage
 
 
 
 
 startButtonEl.onclick=startQuiz
+submitBtnEl.onclick=highScore
