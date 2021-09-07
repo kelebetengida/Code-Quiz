@@ -23,7 +23,7 @@ An app built for a timed EMT preparation Exam quiz with multiple-choice question
 
 ## Deployed-Link
 
-https://kelebetengida.github.io/Code-Quiz/
+https://kelebetengida.github.io/EMT-Quiz/
 
 ##  Installing
 
