@@ -39,13 +39,12 @@ const questionChoicesEl=document.querySelector("#question-choices");
 const finalScoreEl=document.querySelector("#final-score");
 const intialsEl=document.querySelector("#intials");
 const submitBtnEl=document.querySelector("#submitbtn");
-const highScoresEl=document.querySelector("#high-scores");
-const highscoreListEl=document.querySelector("#highscore-list");
+
 
 
 questionPageEl.style.display="none";
 endPageEl.style.display="none";
-highScoresEl.style.display="none";
+
 
 let timeLeft=60;
 let timerId
@@ -114,7 +113,8 @@ function allDone(){
 //save highscore function
 function highScore(){
     endPageEl.style.display="none";
-    highScoresEl.style.display="block";
+    
+    
     const highScores=JSON.parse(localStorage.getItem("highscores"))|| [];
     let newScore={
         intials: intialsEl.value, 
@@ -122,9 +122,8 @@ function highScore(){
     };
     highScores.push(newScore);
     localStorage.setItem("highscores",JSON.stringify(highScores));
-    
+    window.location.replace("./highScores.html");
 }
-
 
 
     //save to local storage
