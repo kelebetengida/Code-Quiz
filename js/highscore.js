@@ -12,7 +12,7 @@ clear.addEventListener("click", function(){
 var highScores=localStorage.getItem("highScores");
 highScores=JSON.parse(highScores);
 
-if(highScores!==null){
+if(highScores !== null){
     for(var i=0; i<highScores.length; i++){
         var list=document.createElement("list");
         list.textContent=highScores[i].intials+ ""+ highScores[i].score;

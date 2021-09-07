@@ -35,7 +35,7 @@ const endPageEl=document.querySelector("#end-page");
 const timerEl=document.querySelector("#timer");
 const startButtonEl=document.querySelector("#start-button");
 const questionTitleEl=document.querySelector("#question-title");
-const questionChoicesEl=document.querySelector("#question-choices");
+const questionChoicesEl=document.querySelector("#question-choices");question-choices
 const finalScoreEl=document.querySelector("#final-score");
 const intialsEl=document.querySelector("#intials");
 const submitBtnEl=document.querySelector("#submitbtn");
@@ -56,8 +56,6 @@ function clocktick(){
     timerEl.textContent=`time:${timeLeft}`;
     if (timeLeft <= 0){
         allDone();
-        
-
     }
 }
 
