@@ -122,13 +122,9 @@ function highScore(){
     };
     highScores.push(newScore);
     localStorage.setItem("highscores",JSON.stringify(highScores));
-    for(i=0; i<localStorage.length; i++){
-        let key=localStorage.intials(i);
-        let value=localStorage.getItem(key);
-        highscoreListEl.textContent+= `${key}: ${value}`
-    }
     
 }
+
 
 
     //save to local storage
